@@ -1,6 +1,6 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Link from "next/link"
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -16,15 +16,17 @@ export default function Home() {
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
+          Get started by editing{" "}
           <code className={styles.code}>pages/index.js</code>
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+          <Link href="/category/[category]" as="/category/web">
+            <a className={styles.card}>
+              <h3>Web articles &rarr;</h3>
+              <p>Find in-depth information about Next.js features and API.</p>
+            </a>
+          </Link>
 
           <a href="https://nextjs.org/learn" className={styles.card}>
             <h3>Learn &rarr;</h3>
@@ -32,9 +34,7 @@ export default function Home() {
           </a>
 
           <Link href="/me">
-            <a
-              className={styles.card}
-            >
+            <a className={styles.card}>
               <h3>About Me &rarr;</h3>
               <p>Discover and deploy boilerplate example Next.js projects.</p>
             </a>
@@ -58,10 +58,10 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
     </div>
-  )
+  );
 }
