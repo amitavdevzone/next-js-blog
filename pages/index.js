@@ -28,10 +28,12 @@ export default function Home() {
             </a>
           </Link>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          <Link href="/category/[category]" as="/category/travel">
+            <a className={styles.card}>
+              <h3>Travel articles &rarr;</h3>
+              <p>My travel posts.</p>
+            </a>
+          </Link>
 
           <Link href="/me">
             <a className={styles.card}>
