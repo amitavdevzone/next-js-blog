@@ -1,34 +1,25 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-const Category = ({ category, name }) => {
-  const router = useRouter();
-  const tag = router.query.category;
-  const [posts, setPosts] = useState();
-
-  useEffect(() => {
-    async function fetchBlogPosts() {
-      const response = await axios.get(
-        `http://localhost:8000/api/category/${tag}`
-      );
-      console.log(response);
-      setPosts(response.data);
-    }
-    fetchBlogPosts();
-  }, []);
-
+const Category = ({ category, posts }) => {
   return (
     <div>
-      <h1>
-        Category {category} {name}
-      </h1>
+      <h1>Category {category}</h1>
       <div>
         {posts &&
           posts.map((post, index) => {
             return (
               <div key={index}>
-                <h2>{post.title}</h2>
+                <Link
+                  href="/justread/content/articles/[slug]"
+                  as={`/justread/content/articles/${post.slug}`}
+                >
+                  <a>
+                    <h2>{post.title}</h2>
+                  </a>
+                </Link>
                 <p>
                   Posted on {post.publish_date}, Tag: {post.name}
                 </p>
@@ -48,12 +39,16 @@ export async function getStaticPaths() {
     { params: { category: "travel" } },
   ];
 
-  return { paths, fallback: true };
+  return { paths, fallback: false };
 }
 
-export async function getStaticProps(params) {
-  const category = params.params.category;
+export async function getStaticProps({ params }) {
+  const category = params.category;
+  const response = await axios.get(
+    `http://localhost:8000/api/category/${category}`
+  );
+  const posts = response.data;
   return {
-    props: { category, name: "Amitav" },
+    props: { category, posts },
   };
 }
